@@ -1,0 +1,7 @@
+'Neos.Neos:Node':
+  properties:
+    propertyChangeState:
+      type: string
+  options:
+    propertyChanges:
+      properties: []

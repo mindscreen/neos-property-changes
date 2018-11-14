@@ -1,0 +1,13 @@
+-
+  name: 'Mindscreen.PropertyChanges :: accept property'
+  uriPattern: 'mscr/property-change/accept'
+  defaults:
+    '@package':    'Mindscreen.PropertyChanges'
+    '@controller': 'PropertyChangeUi'
+    '@format':     'json'
+    '@action':     'acceptProperty'
+  routeParts:
+    node:
+      handler: 'Neos\Neos\Routing\FrontendNodeRoutePartHandler'
+  appendExceedingArguments: true
+  httpMethods: ['POST']

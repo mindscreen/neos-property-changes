@@ -1,0 +1,11 @@
+
+privilegeTargets:
+  Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
+    Mindscreen_PropertyChanges_AcceptChangedProperty:
+      matcher: 'method(Mindscreen\PropertyChanges\Controller\PropertyChangeUiController->.*Action())'
+roles:
+  'Neos.Neos:AbstractEditor':
+    privileges:
+    -
+      privilegeTarget: Mindscreen_PropertyChanges_AcceptChangedProperty
+      permission: GRANT

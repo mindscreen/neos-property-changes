@@ -1,0 +1,16 @@
+{
+    "description": "Integrate a UI element for property changes in the UI",
+    "private": true,
+    "scripts": {
+        "build": "neos-react-scripts build",
+        "watch": "neos-react-scripts watch"
+    },
+    "devDependencies": {
+        "@neos-project/eslint-config-neos": "^2.1.2",
+        "@neos-project/neos-ui-extensibility": "*",
+        "lodash.union": "^4.6.0"
+    },
+    "neos": {
+        "buildTargetDirectory": "../../Public/JavaScript/PropertyChangeUi"
+    }
+}

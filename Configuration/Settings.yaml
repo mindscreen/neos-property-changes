@@ -1,0 +1,28 @@
+Neos:
+  Flow:
+    mvc:
+      routes:
+        Mindscreen.PropertyChanges:
+          position: 'before Neos.Neos'
+    security:
+      authentication:
+        providers:
+          'Neos.Neos:Backend':
+            requestPatterns:
+              'Mindscreen.PropertyChanges:BackendControllers':
+                pattern: ControllerObjectName
+                patternOptions:
+                  controllerObjectNamePattern: 'Mindscreen\PropertyChanges\Controller\.*'
+  Neos:
+    fusion:
+      autoInclude:
+        Mindscreen.PropertyChanges: true
+    userInterface:
+      translation:
+        autoInclude:
+          Mindscreen.PropertyChanges: ['Main']
+    Ui:
+      resources:
+        javascript:
+          Mindscreen.PropertyChanges:PropertyChangesUi:
+            resource: 'resource://Mindscreen.PropertyChanges/Public/JavaScript/PropertyChangeUi/Plugin.js'

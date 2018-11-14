@@ -1,0 +1,50 @@
+prototype(Mindscreen.PropertyChanges:PropertyChangeHint) < prototype(Neos.Fusion:Component) {
+    node = ${node}
+    properties = Neos.Fusion:RawArray
+    notify = Neos.Fusion:RawArray
+    scrollIntoFocus = true
+
+    renderer = Neos.Fusion:Tag {
+        attributes {
+            data-__property-change-nodetype = ${props.node.nodeType.name}
+            data-__property-change-observe = ${Json.stringify(props.properties)}
+            data-__property-change-notify = ${Array.length(props.notify) ? Json.stringify(props.notify) : null}
+            data-__property-change-contextpath = ${props.node.contextPath}
+            data-__property-change-focus = ${props.scrollIntoFocus ? 'true' : 'false'}
+            data-__property-change-baseuri = Neos.Fusion:UriBuilder {
+                package = 'Mindscreen.PropertyChanges'
+                controller = 'PropertyChangeUi'
+                action = 'acceptProperty'
+                format = 'json'
+            }
+            data-__property-change-changedproperties = Neos.Fusion:Collection {
+                collection = ${props.properties}
+                itemName = 'propertyName'
+                @context.acceptedProperties = ${Json.parse(q(props.node).property('propertyChangeState') || '{}')}
+                itemRenderer = Neos.Fusion:Value {
+                    acceptedValue = ${acceptedProperties[propertyName]}
+                    actualValue = ${q(props.node).property(propertyName)}
+                    value = ${this.acceptedValue != this.actualValue ? ('"' + propertyName + '",') : ''}
+                }
+                @process.toJson = ${'[' + String.substring(value, 0, String.length(value)-1) + ']'}
+            }
+        }
+        @if.isInBackend = ${props.node.context.inBackend}
+        @if.observesProperties = ${Array.length(props.properties)}
+    }
+}
+
+prototype(Neos.Neos:Page) {
+    head {
+        propertyChangeHintCss = Neos.Fusion:Tag {
+            tagName = 'link'
+            attributes {
+                rel = 'stylesheet'
+                href = Neos.Fusion:ResourceUri {
+                    path = 'resource://Mindscreen.PropertyChanges/Public/Css/PropertyChangeUi/Plugin.css'
+                }
+            }
+            @if.inBackend = ${documentNode.context.inBackend}
+        }
+    }
+}
